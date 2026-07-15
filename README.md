@@ -1,17 +1,20 @@
 # LoginScreen
 
-A simple Flutter application that displays a clean login page UI with username and password fields.
+A simple Flutter application that displays a styled login page UI with email or phone login, password entry, and basic input validation.
 
 ## Overview
 
-LoginScreen is a beginner-friendly Flutter project created to practice basic app layout, Material Design widgets, and form-style UI building. The app includes a centered login form with input fields and a login button.
+LoginScreen is a beginner-friendly Flutter project created to practice Material Design widgets, stateful input handling, and form-style UI building. The app includes a centered login card with welcome text, input fields, a login button, and a forgot-password prompt.
 
 ## Features
 
 - Flutter Material Design interface
-- Username input field
-- Password input field
-- Login button
+- Centered login card with rounded corners and light background
+- Email or phone number input field
+- Masked password input field
+- Login button with basic console validation
+- Empty email and short password checks
+- Forgot password prompt
 - Simple and clean layout
 - Cross-platform Flutter project structure
 
@@ -79,4 +82,4 @@ windows/           # Windows platform files
 
 ## Description
 
-A simple Flutter login screen UI with username and password fields.
+A simple Flutter login screen UI with email or phone login, password masking, basic login validation, and a forgot-password prompt.
