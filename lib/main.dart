@@ -32,8 +32,8 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          width: 350,
-          height: 300,
+          // width: 350,
+          // height: 300,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -46,6 +46,7 @@ class HomePage extends StatelessWidget {
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: "Username",
+                    hintText: "Username",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
