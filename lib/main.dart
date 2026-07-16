@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.grey[200],
+            color: const Color(0xFFF3F8FF),
           ),
 
           child: Column(
@@ -94,7 +94,11 @@ class _HomePageState extends State<HomePage> {
                           isPasswordHidden = !isPasswordHidden;
                         });
                       },
-                      icon: Icon(isPasswordHidden ? Icons.visibility : Icons.visibility_off),
+                      icon: Icon(
+                        isPasswordHidden
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -128,8 +132,11 @@ class _HomePageState extends State<HomePage> {
                           passwordError = null;
                         }
                       });
-                      print("Email: ${email}");
-                      print("Password: ${password}");
+                      if (emailError == null && passwordError == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Login Successful")),
+                        );
+                      }
                     },
                     child: const Text("Login"),
                   ),
