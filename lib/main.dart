@@ -23,6 +23,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  String? emailError;
+  String? passwordError;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                 child: TextField(
                   controller: emailController,
                   decoration: InputDecoration(
+                    errorText: emailError,
                     labelText: "Email or Phone number",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -80,6 +84,7 @@ class _HomePageState extends State<HomePage> {
                   controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
+                    errorText: passwordError,
                     labelText: "Password",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -96,16 +101,27 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       final email = emailController.text.trim();
                       final password = passwordController.text;
-                      if (email.isEmpty) {
-                        print("Please enter your email.");
-                      } else {
-                        print("Email: ${email}");
-                      }
-                      if (password.length < 6) {
-                        print("Password must contain more than 6 characters.");
-                      } else {
-                        print("Password: ${password}");
-                      }
+
+                      setState(() {
+                        if (email.isEmpty) {
+                          emailError = "Please enter your email.";
+                        } else {
+                          emailError = null;
+                          
+                        }
+
+                        if (password.isEmpty) {
+                          passwordError = "Please enter password ";
+                        } else if (password.length < 6) {
+                          passwordError =
+                              "Password must contain at least 6 letters";
+                        } else {
+                          passwordError = null;
+                          
+                        }
+                      });
+                      print("Email: ${email}");
+                      print("Password: ${password}");
                     },
                     child: const Text("Login"),
                   ),
@@ -124,5 +140,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }
