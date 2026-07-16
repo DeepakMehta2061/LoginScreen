@@ -23,8 +23,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   String? emailError;
   String? passwordError;
+  bool isPasswordHidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +40,14 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.blue[400],
+        backgroundColor: const Color.fromARGB(255, 0, 126, 230),
       ),
       body: Center(
         child: Container(
           width: 350,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
             color: Colors.grey[200],
           ),
 
@@ -82,10 +84,18 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 child: TextField(
                   controller: passwordController,
-                  obscureText: true,
+                  obscureText: isPasswordHidden,
                   decoration: InputDecoration(
                     errorText: passwordError,
                     labelText: "Password",
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isPasswordHidden = !isPasswordHidden;
+                        });
+                      },
+                      icon: Icon(isPasswordHidden ? Icons.visibility : Icons.visibility_off),
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -107,7 +117,6 @@ class _HomePageState extends State<HomePage> {
                           emailError = "Please enter your email.";
                         } else {
                           emailError = null;
-                          
                         }
 
                         if (password.isEmpty) {
@@ -117,7 +126,6 @@ class _HomePageState extends State<HomePage> {
                               "Password must contain at least 6 letters";
                         } else {
                           passwordError = null;
-                          
                         }
                       });
                       print("Email: ${email}");
