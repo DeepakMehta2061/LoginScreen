@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   String? emailError;
   String? passwordError;
   bool isPasswordHidden = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -112,33 +113,46 @@ class _HomePageState extends State<HomePage> {
                   height: 50,
                   width: 150,
                   child: ElevatedButton(
-                    onPressed: () {
-                      final email = emailController.text.trim();
-                      final password = passwordController.text;
+                    onPressed: isLoading
+                        ? null
+                        : () {
+                            final email = emailController.text.trim();
+                            final password = passwordController.text;
 
-                      setState(() {
-                        if (email.isEmpty) {
-                          emailError = "Please enter your email.";
-                        } else {
-                          emailError = null;
-                        }
+                            setState(() {
+                              if (email.isEmpty) {
+                                emailError = "Please enter your email.";
+                              } else {
+                                emailError = null;
+                              }
 
-                        if (password.isEmpty) {
-                          passwordError = "Please enter password ";
-                        } else if (password.length < 6) {
-                          passwordError =
-                              "Password must contain at least 6 letters";
-                        } else {
-                          passwordError = null;
-                        }
-                      });
-                      if (emailError == null && passwordError == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Login Successful")),
-                        );
-                      }
-                    },
-                    child: const Text("Login"),
+                              if (password.isEmpty) {
+                                passwordError = "Please enter password ";
+                              } else if (password.length < 6) {
+                                passwordError =
+                                    "Password must contain at least 6 letters";
+                              } else {
+                                passwordError = null;
+                              }
+                            });
+                            if (isLoading == false) {
+                              setState(() {
+                                isLoading = true;
+                              });
+                            }
+                            if (emailError == null && passwordError == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Login Successful")),
+                              );
+                            }
+                          },
+                    child: isLoading
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Text("Login"),
                   ),
                 ),
               ),
