@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                   child: ElevatedButton(
                     onPressed: isLoading
                         ? null
-                        : () {
+                        : () async {
                             final email = emailController.text.trim();
                             final password = passwordController.text;
 
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                               }
 
                               if (password.isEmpty) {
-                                passwordError = "Please enter password ";
+                                passwordError = "Please enter password.";
                               } else if (password.length < 6) {
                                 passwordError =
                                     "Password must contain at least 6 letters";
@@ -135,14 +135,21 @@ class _HomePageState extends State<HomePage> {
                                 passwordError = null;
                               }
                             });
-                            if (isLoading == false) {
+
+                            if (emailError == null && passwordError == null) {
                               setState(() {
                                 isLoading = true;
                               });
-                            }
-                            if (emailError == null && passwordError == null) {
+
+                              await Future.delayed(Duration(seconds: 2));
+                              setState(() {
+                                isLoading = false;
+                              });
+
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Login Successful")),
+                                const SnackBar(
+                                  content: Text("Login Successful"),
+                                ),
                               );
                             }
                           },
