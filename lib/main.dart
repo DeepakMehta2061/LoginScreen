@@ -107,70 +107,73 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
-              Center(
-                child: SizedBox(
-                  height: 50,
-                  width: 150,
-                  child: ElevatedButton(
-                    onPressed: isLoading
-                        ? null
-                        : () async {
-                            final email = emailController.text.trim();
-                            final password = passwordController.text;
-
-                            setState(() {
-                              if (email.isEmpty) {
-                                emailError = "Please enter your email.";
-                              } else {
-                                emailError = null;
-                              }
-
-                              if (password.isEmpty) {
-                                passwordError = "Please enter password.";
-                              } else if (password.length < 6) {
-                                passwordError =
-                                    "Password must contain at least 6 letters";
-                              } else {
-                                passwordError = null;
-                              }
-                            });
-
-                            if (emailError == null && passwordError == null) {
-                              setState(() {
-                                isLoading = true;
-                              });
-
-                              await Future.delayed(Duration(seconds: 2));
-                              setState(() {
-                                isLoading = false;
-                              });
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Login Successful"),
-                                ),
-                              );
-                            }
-                          },
-                    child: isLoading
-                        ? SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Text("Login"),
-                  ),
-                ),
-              ),
-              SizedBox(height: 15),
-
-              Center(
+              Align(
+                alignment: Alignment.centerRight,
                 child: Text(
                   "Forgot Password ?",
-                  style: TextStyle(fontSize: 13, color: Colors.blue),
+                  style: TextStyle(color: Colors.red),
                 ),
               ),
+              SizedBox(height: 15),
+              SizedBox(
+                height: 45,
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: isLoading
+                      ? null
+                      : () async {
+                          final email = emailController.text.trim();
+                          final password = passwordController.text;
+
+                          setState(() {
+                            if (email.isEmpty) {
+                              emailError = "Please enter your email.";
+                            } else {
+                              emailError = null;
+                            }
+
+                            if (password.isEmpty) {
+                              passwordError = "Please enter password.";
+                            } else if (password.length < 6) {
+                              passwordError =
+                                  "Password must contain at least 6 letters";
+                            } else {
+                              passwordError = null;
+                            }
+                          });
+
+                          if (emailError == null && passwordError == null) {
+                            setState(() {
+                              isLoading = true;
+                            });
+
+                            await Future.delayed(Duration(seconds: 2));
+                            setState(() {
+                              isLoading = false;
+                            });
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Login Successful")),
+                            );
+                          }
+                        },
+                  child: isLoading
+                      ? SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Text("Login"),
+                ),
+              ),
+              SizedBox(height: 15),
             ],
           ),
         ),
