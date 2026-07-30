@@ -107,12 +107,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              SizedBox(height: 2),
               Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  "Forgot Password ?",
-                  style: TextStyle(color: Colors.red),
-                ),
+                child: Text("Forgot Password ?"),
               ),
               SizedBox(height: 15),
               SizedBox(
@@ -162,6 +160,12 @@ class _HomePageState extends State<HomePage> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("Login Successful")),
                             );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(email: email),
+                              ),
+                            );
                           }
                         },
                   child: isLoading
@@ -173,7 +177,6 @@ class _HomePageState extends State<HomePage> {
                       : const Text("Login"),
                 ),
               ),
-              SizedBox(height: 15),
             ],
           ),
         ),
